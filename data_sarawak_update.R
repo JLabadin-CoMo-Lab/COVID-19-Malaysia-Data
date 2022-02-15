@@ -29,7 +29,7 @@ case <- newC-recC-deaC
 
 newRow <- data.frame(day,date,newC,recC,deaC,case)
 
-write.table(a,file = 'D:/MOZZHUB/COVID-19-Malaysia-Data/srwk_case.csv',sep = ',', 
+write.table(newRow,file = 'D:/MOZZHUB/COVID-19-Malaysia-Data/srwk_case.csv',sep = ',', 
             append = T, 
             row.names=F, 
             col.names=F)

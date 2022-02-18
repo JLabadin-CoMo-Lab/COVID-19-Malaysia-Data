@@ -3,6 +3,9 @@ deathRaw <- read.csv('https://raw.githubusercontent.com/MoH-Malaysia/covid19-pub
 pre <- read.csv('D:/MOZZHUB/COVID-19-Malaysia-Data/Mal_case.csv',sep=",",header = TRUE)
 last <- tail(pre,n=1)
 lastDate <- as.Date(last$Date, format="%m/%d/%Y")
+if(is.na(lastDate)){
+  lastDate <- as.Date(last$Date)
+}
 lastDateRaw <- tail(raw,n=1)$date
 if(lastDate==lastDateRaw){
   print("All Updated")

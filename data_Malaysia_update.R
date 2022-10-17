@@ -1,15 +1,17 @@
 raw <- read.csv('https://raw.githubusercontent.com/MoH-Malaysia/covid19-public/main/epidemic/cases_malaysia.csv',sep = ',',header = TRUE)
 deathRaw <- read.csv('https://raw.githubusercontent.com/MoH-Malaysia/covid19-public/main/epidemic/deaths_malaysia.csv',sep=',',header = TRUE)
-pre <- read.csv('./Mal_case.csv',sep=",",header = TRUE)
+pre <- read.csv('~/COVID-19-Malaysia-Data/Mal_case.csv',sep=",",header = TRUE)
 last <- tail(pre,n=1)
 lastDate <- as.Date(last$Date, format="%m/%d/%Y")
 if(is.na(lastDate)){
   lastDate <- as.Date(last$Date)
 }
-lastDateRaw <- tail(raw,n=1)$date
+lastDateRaw <- as.Date(tail(raw,n=1)$date)
 if(lastDate==lastDateRaw){
   print("All Updated")
 } else{
+  raw$date <- as.Date(raw$date)
+  deathRaw$date <- as.Date(deathRaw$date)
   mal <- raw[raw$date>lastDate,]
   deathMal <- deathRaw[deathRaw$date>lastDate,]
   new <- mal$cases_new
@@ -36,7 +38,7 @@ if(lastDate==lastDateRaw){
   case <- newC-recC-deaC
   
   newRow <- data.frame(day,newC,recC,deaC,case,date)
-  write.table(newRow,file = './Mal_case.csv',sep = ',',
+  write.table(newRow,file = '~/COVID-19-Malaysia-Data/Mal_case.csv',sep = ',',
               append = T, 
               row.names=F, 
               col.names=F)

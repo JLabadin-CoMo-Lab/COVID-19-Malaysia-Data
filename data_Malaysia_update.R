@@ -1,6 +1,6 @@
 raw <- read.csv('https://raw.githubusercontent.com/MoH-Malaysia/covid19-public/main/epidemic/cases_malaysia.csv',sep = ',',header = TRUE)
 deathRaw <- read.csv('https://raw.githubusercontent.com/MoH-Malaysia/covid19-public/main/epidemic/deaths_malaysia.csv',sep=',',header = TRUE)
-pre <- read.csv('~/COVID-19-Malaysia-Data/Mal_case.csv',sep=",",header = TRUE)
+pre <- read.csv('~/COVID-19-Malaysia-Data/Mal_case.csv',sep=",",header = TRUE,stringsAsFactors = FALSE)
 last <- tail(pre,n=1)
 lastDate <- as.Date(last$Date, format="%m/%d/%Y")
 if(is.na(lastDate)){

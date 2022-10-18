@@ -1,6 +1,6 @@
 raw <- read.csv('https://raw.githubusercontent.com/MoH-Malaysia/covid19-public/main/epidemic/cases_state.csv',sep = ',',header = TRUE)
 deathRaw <- read.csv('https://raw.githubusercontent.com/MoH-Malaysia/covid19-public/main/epidemic/deaths_state.csv',sep=',',header = TRUE)
-pre <- read.csv('D:/MOZZHUB/COVID-19-Malaysia-Data/srwk_case.csv',sep=",",header = TRUE)
+pre <- read.csv('~/COVID-19-Malaysia-Data/srwk_case.csv',sep=",",header = TRUE,stringsAsFactors = FALSE)
 last <- tail(pre,n=1)
 lastDate <- as.Date(last$Date, format="%m/%d/%Y")
 if(is.na(lastDate)){
@@ -10,7 +10,9 @@ lastDateRaw <- tail(raw[raw$state=="Sarawak",],n=1)$date
 if(lastDate==lastDateRaw){
   print("All Updated")
 } else{
-  sar <- raw[raw$state=="Sarawak"&raw$date>lastDate,]
+  raw$date <- as.Date(raw$date)
+  deathRaw$date <- as.Date(deathRaw$date)
+  sar <- raw[raw$state=="Sarawak"& raw$date >lastDate,]
   deathSar <- deathRaw[deathRaw$state=="Sarawak"&deathRaw$date>lastDate,]
   new <- sar$cases_new
   rec <- sar$cases_recovered
@@ -36,8 +38,8 @@ if(lastDate==lastDateRaw){
   
   newRow <- data.frame(day,date,newC,recC,deaC,case)
   
-  write.table(newRow,file = 'D:/MOZZHUB/COVID-19-Malaysia-Data/srwk_case.csv',sep = ',', 
-              append = T, 
-              row.names=F, 
-              col.names=F)
+  # write.table(newRow,file = '~/COVID-19-Malaysia-Data/srwk_case.csv',sep = ',', 
+  #             append = T, 
+  #             row.names=F, 
+  #             col.names=F)
 }
